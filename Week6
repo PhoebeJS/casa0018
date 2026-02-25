@@ -3,11 +3,11 @@
     {
       "cell_type": "markdown",
       "metadata": {
-        "colab_type": "text",
-        "id": "view-in-github"
+        "id": "view-in-github",
+        "colab_type": "text"
       },
       "source": [
-        "<a href=\"https://colab.research.google.com/github/ucl-casa-ce/casa0018/blob/main/Week6/CASA0018_6_ObjectDetection.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+        "<a href=\"https://colab.research.google.com/github/PhoebeJS/casa0018/blob/main/Week6\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
     },
     {
@@ -241,11 +241,7 @@
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "F2NJUVGjWShg",
-        "outputId": "d05cf60d-88b7-4ab6-ab6a-266f6be7c2fe"
+        "id": "F2NJUVGjWShg"
       },
       "outputs": [],
       "source": [
@@ -269,11 +265,7 @@
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "RNMM1NNYh3hu",
-        "outputId": "d878899b-4c61-4460-9714-b7502bfd8cc6"
+        "id": "RNMM1NNYh3hu"
       },
       "outputs": [],
       "source": [
@@ -313,7 +305,7 @@
         "  # Convert to numpy arrays, and take index [0] to remove the batch dimension.\n",
         "  # We're only interested in the first num_detections.\n",
         "  num_detections = int(output_dict.pop('num_detections'))\n",
-        "  output_dict = {key:value[0, :num_detections].numpy() \n",
+        "  output_dict = {key:value[0, :num_detections].numpy()\n",
         "                 for key,value in output_dict.items()}\n",
         "  output_dict['num_detections'] = num_detections\n",
         "\n",
@@ -322,17 +314,17 @@
         "\n",
         "  # detection_classes should be ints.\n",
         "  output_dict['detection_classes'] = output_dict['detection_classes'].astype(np.int64)\n",
-        "   \n",
+        "\n",
         "  # Handle models with masks:\n",
         "  if 'detection_masks' in output_dict:\n",
         "    # Reframe the the bbox mask to the image size.\n",
         "    detection_masks_reframed = utils_ops.reframe_box_masks_to_image_masks(\n",
         "              output_dict['detection_masks'], output_dict['detection_boxes'],\n",
-        "               image.shape[0], image.shape[1])      \n",
+        "               image.shape[0], image.shape[1])\n",
         "    detection_masks_reframed = tf.cast(detection_masks_reframed > 0.5,\n",
         "                                       tf.uint8)\n",
         "    output_dict['detection_masks_reframed'] = detection_masks_reframed.numpy()\n",
-        "    \n",
+        "\n",
         "  return output_dict"
       ]
     },
@@ -344,7 +336,7 @@
       "source": [
         "Show_inference calls the inference method above and visualises the results. It uses visualisation_utils functions which can be found at https://github.com/tensorflow/models/blob/master/research/object_detection/utils/visualization_utils.py  \n",
         "\n",
-        "Experiment with changing the max_boxes_to_draw and min_score_thresh to see how results are displayed. "
+        "Experiment with changing the max_boxes_to_draw and min_score_thresh to see how results are displayed."
       ]
     },
     {
@@ -386,7 +378,7 @@
       "source": [
         "There are a couple of images built into this repo but if you want to test the code with your images, just add path to the images to the `TEST_IMAGE_PATHS`.\n",
         "\n",
-        "To see what categories are in the COCO dataset to help you choose which images to use [see this repo](https://tech.amikelive.com/node-718/what-object-categories-labels-are-in-coco-dataset/). \n",
+        "To see what categories are in the COCO dataset to help you choose which images to use [see this repo](https://tech.amikelive.com/node-718/what-object-categories-labels-are-in-coco-dataset/).\n",
         "\n",
         "\n",
         "Be careful: when using images with an alpha channel, the model expect 3 channels images and the alpha will count as a 4th."
@@ -396,11 +388,7 @@
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "cavBiVloe1uj",
-        "outputId": "e595eed1-d890-4a3b-f70f-2c69b5c8343d"
+        "id": "cavBiVloe1uj"
       },
       "outputs": [],
       "source": [
@@ -413,12 +401,7 @@
       "cell_type": "code",
       "execution_count": null,
       "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 1000
-        },
-        "id": "lU7SRLR1cJ2n",
-        "outputId": "3848a2ae-70ed-45b5-bc6c-a4bbce1d1462"
+        "id": "lU7SRLR1cJ2n"
       },
       "outputs": [],
       "source": [
@@ -438,11 +421,11 @@
         "# Whats next?\n",
         "\n",
         "Once you have a version of the object detector working start to experiment with different settings for how the data is visualised and explore how the different models create different results. Some questions you may want to ponder (and which will be useful for thinking about your final coursework) include:\n",
-        "1. Which models give the best results? \n",
-        "2. What does best mean? \n",
-        "3. Does it change with different images? \n",
-        "4. Do different models take different times to load? \n",
-        "5. Why is that? \n",
+        "1. Which models give the best results?\n",
+        "2. What does best mean?\n",
+        "3. Does it change with different images?\n",
+        "4. Do different models take different times to load?\n",
+        "5. Why is that?\n",
         "6. Take a look at the model structures - does that explain why some take longer to load than others?"
       ]
     }
@@ -450,11 +433,9 @@
   "metadata": {
     "accelerator": "GPU",
     "colab": {
-      "authorship_tag": "ABX9TyOn+OIhXxagAQAyGwkZjany",
-      "collapsed_sections": [],
-      "include_colab_link": true,
       "name": "CASA0018_5_ObjectDetection.ipynb",
-      "provenance": []
+      "provenance": [],
+      "include_colab_link": true
     },
     "kernelspec": {
       "display_name": "Python 3",
